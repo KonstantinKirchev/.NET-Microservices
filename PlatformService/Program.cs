@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
 using PlatformService.Data.UnitOfWork;
+using PlatformService.SyncDataservices.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IPlatformData, PlatformData>();
+builder.Services.AddHttpClient<ICommandDataClient, CommandDataClient>();
 
 var app = builder.Build();
 
