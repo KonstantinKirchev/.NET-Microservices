@@ -1,15 +1,14 @@
+using AutoMapper;
 using CommandsService.Data.UnitOfWork;
 using CommandsService.Models;
 
 namespace CommandsService.Services
 {
-    public class CommandsService : ICommandsService
+    public class CommandsService : BaseService, ICommandsService
     {
-        private readonly ICommandsData _data;
-
-        public CommandsService(ICommandsData data)
+        public CommandsService(ICommandsData data, IMapper mapper) 
+            : base(data, mapper)
         {
-            _data = data;
         }
 
         public IEnumerable<Platform> GetAllPlatforms()
