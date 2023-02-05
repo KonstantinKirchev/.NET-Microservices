@@ -2,7 +2,7 @@ using CommandsService.Models;
 
 namespace CommandsService.Services
 {
-    public interface ICommandsService
+    public interface ICommandService
     {
         // Platforms
         IEnumerable<Platform> GetAllPlatforms();

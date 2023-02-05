@@ -1,4 +1,5 @@
 using CommandsService.Data.UnitOfWork;
+using CommandsService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ICommandsData,CommandsData>();
+builder.Services.AddScoped<ICommandService, CommandService>();
 
 var app = builder.Build();
 

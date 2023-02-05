@@ -4,9 +4,9 @@ using CommandsService.Models;
 
 namespace CommandsService.Services
 {
-    public class CommandsService : BaseService, ICommandsService
+    public class CommandService : BaseService, ICommandService
     {
-        public CommandsService(ICommandsData data, IMapper mapper) 
+        public CommandService(ICommandsData data, IMapper mapper) 
             : base(data, mapper)
         {
         }
