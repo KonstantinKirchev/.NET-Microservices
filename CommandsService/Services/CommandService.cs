@@ -1,5 +1,6 @@
 using AutoMapper;
 using CommandsService.Data.UnitOfWork;
+using CommandsService.Dtos;
 using CommandsService.Models;
 
 namespace CommandsService.Services
@@ -11,9 +12,10 @@ namespace CommandsService.Services
         {
         }
 
-        public IEnumerable<Platform> GetAllPlatforms()
+        public IEnumerable<PlatformReadDto> GetAllPlatforms()
         {
-            return _data.Platforms.All().ToList();
+            var platforms = _data.Platforms.All().ToList();
+            return _mapper.Map<IEnumerable<PlatformReadDto>>(platforms);
         }
 
         public void CreatePlatform(Platform platform)
@@ -34,32 +36,42 @@ namespace CommandsService.Services
                         .Any(p => p.Id == platformId);
         }
 
-        public IEnumerable<Command> GetCommandsForPlatform(int platformId)
+        public IEnumerable<CommandReadDto> GetCommandsForPlatform(int platformId)
         {
-            return _data.Commands
+            var commands = _data.Commands
                 .All()
                 .Where(c => c.PlatformId == platformId)
                 .OrderBy(c => c.Platform.Name)
                 .ToList();
+
+            return _mapper.Map<IEnumerable<CommandReadDto>>(commands);
         }
 
-        public Command GetCommand(int platformId, int commandId)
+        public CommandReadDto GetCommand(int platformId, int commandId)
         {
-            return _data.Commands
+            var command =  _data.Commands
                         .All()
                         .FirstOrDefault(c => c.PlatformId == platformId && c.Id == commandId);
+
+            return _mapper.Map<CommandReadDto>(command);
         }
 
-        public void CreateCommand(int platformId, Command command)
+        public CommandReadDto CreateCommand(int platformId, CommandCreateDto commandDto)
         {
-            if (command == null) {
-                throw new ArgumentNullException(nameof(command));
+            if (commandDto == null) {
+                throw new ArgumentNullException(nameof(commandDto));
             }
+
+            var command = _mapper.Map<Command>(commandDto);
 
             command.PlatformId = platformId;
 
             _data.Commands.Add(command);
             _data.SaveChanges();
+
+            var commandReadDto = _mapper.Map<CommandReadDto>(command);
+
+            return commandReadDto;
         }
     }
 }

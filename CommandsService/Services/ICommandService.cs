@@ -1,3 +1,4 @@
+using CommandsService.Dtos;
 using CommandsService.Models;
 
 namespace CommandsService.Services
@@ -5,13 +6,13 @@ namespace CommandsService.Services
     public interface ICommandService
     {
         // Platforms
-        IEnumerable<Platform> GetAllPlatforms();
+        IEnumerable<PlatformReadDto> GetAllPlatforms();
         void CreatePlatform(Platform platform);
         bool PlatformExist(int platformId);
 
         // Commands
-        IEnumerable<Command> GetCommandsForPlatform(int platformId);
-        Command GetCommand(int platformId, int commandId);
-        void CreateCommand(int platformId, Command command);
+        IEnumerable<CommandReadDto> GetCommandsForPlatform(int platformId);
+        CommandReadDto GetCommand(int platformId, int commandId);
+        CommandReadDto CreateCommand(int platformId, CommandCreateDto command);
     }
 }
