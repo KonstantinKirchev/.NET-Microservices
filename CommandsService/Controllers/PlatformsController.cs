@@ -7,13 +7,11 @@ namespace CommandsService.Controllers
 {
     [Route("api/c/[controller]")]
     [ApiController]
-    public class PlatformsController : ControllerBase
+    public class PlatformsController : BaseController
     {
-        private readonly ICommandService _commandService;
-
-        public PlatformsController(ICommandService commandService)
+        public PlatformsController(ICommandService commandService) 
+            : base(commandService)
         {
-            _commandService = commandService;
         }
 
         [HttpGet]
