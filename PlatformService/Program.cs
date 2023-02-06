@@ -3,6 +3,7 @@ using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.Data.UnitOfWork;
 using PlatformService.SyncDataservices.Http;
+using PlatformService.SyncDataServices.Grpc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IPlatformData, PlatformData>();
 builder.Services.AddHttpClient<ICommandDataClient, CommandDataClient>();
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
+builder.Services.AddGrpc();
 
 var app = builder.Build();
 
@@ -44,7 +46,16 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseRouting();
+
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllers();
+    endpoints.MapGrpcService<GrpcPlatformService>();
+
+    endpoints.MapGet("/protos/platforms.proto", async context => {
+        await context.Response.WriteAsync(File.ReadAllText("Protos/platforms.proto"));
+    });
+});
 
 PrepDb.PrepPopulation(app, app.Environment.IsProduction());
 
