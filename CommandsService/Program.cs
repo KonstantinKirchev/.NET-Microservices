@@ -3,6 +3,7 @@ using CommandsService.Data;
 using CommandsService.Data.UnitOfWork;
 using CommandsService.EventProcessing;
 using CommandsService.Services;
+using CommandsService.SyncDataServices.Grpc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICommandsData,CommandsData>();
 builder.Services.AddScoped<ICommandService, CommandService>();
 builder.Services.AddSingleton<IEventProcessor, EventProcessor>();
+builder.Services.AddScoped<IPlatformDataClient, PlatformDataClient>();
 
 var app = builder.Build();
 
