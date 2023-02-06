@@ -73,5 +73,12 @@ namespace CommandsService.Services
 
             return commandReadDto;
         }
+
+        public bool ExternalPlatformExist(int externalPlatformId)
+        {
+            return _data.Platforms
+                        .All()
+                        .Any(p => p.ExternalId == externalPlatformId);
+        }
     }
 }
