@@ -22,7 +22,7 @@ namespace CommandsService.Controllers
             return Ok(_commandService.GetCommandsForPlatform(platformId));
         }
 
-        [HttpGet("{commandId: int}", Name="GetCommandForPlatform")]
+        [HttpGet("{commandId:int}", Name="GetCommandForPlatform")]
         public ActionResult<CommandReadDto> GetCommandForPlatform (int platformId, int commandId) 
         {
             if (!_commandService.PlatformExist(platformId))
@@ -43,7 +43,7 @@ namespace CommandsService.Controllers
             
             var command = _commandService.CreateCommand(platformId, commandDto);
             
-            return CreatedAtRoute(nameof(CreateCommandForPlatform), new {platformId = platformId, commandId = command.Id} , command);
+            return CreatedAtRoute(nameof(GetCommandForPlatform), new {platformId = platformId, commandId = command.Id} , command);
         }
     }
 }
