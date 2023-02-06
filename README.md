@@ -2,8 +2,8 @@
 
 # Create new Web API project:
 
-dotnet new webapi -n PlatformService
-dotnet new webapi -n CommandsService
+- dotnet new webapi -n PlatformService
+- dotnet new webapi -n CommandsService
 
 dotnet build
 dotnet run
