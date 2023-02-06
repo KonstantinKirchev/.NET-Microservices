@@ -24,6 +24,7 @@ namespace CommandsService.EventProcessing
             switch (eventType)
             {
                 case EventType.PlatformPublished:
+                    this.AddPlatform(message);
                     break;
                 default:
                     break;
@@ -48,7 +49,7 @@ namespace CommandsService.EventProcessing
 
         }
 
-        private void addPlatform(string platformPublishedMessage)
+        private void AddPlatform(string platformPublishedMessage)
         {
             using(var scope = _scopeFactory.CreateScope())
             {
@@ -62,6 +63,7 @@ namespace CommandsService.EventProcessing
                     if (!commandService.ExternalPlatformExist(platform.ExternalId)) 
                     {
                         commandService.CreatePlatform(platform);
+                        Console.WriteLine("--> Platform added!");
                     }
                     else
                     {
