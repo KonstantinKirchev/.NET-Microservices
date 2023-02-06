@@ -1,5 +1,6 @@
 using CommandsService.Data;
 using CommandsService.Data.UnitOfWork;
+using CommandsService.EventProcessing;
 using CommandsService.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ICommandsData,CommandsData>();
 builder.Services.AddScoped<ICommandService, CommandService>();
+builder.Services.AddSingleton<IEventProcessor, EventProcessor>();
 
 var app = builder.Build();
 
