@@ -35,12 +35,12 @@
 
 # Docker commands:
 
-- docker build -t konstantinkirchev/platformservice .
+- docker build -t konstantinkirchev/platformservice . - build a new docker image
 - docker run -p 8080:80 -d konstantinkirchev/platformservice - run a new instance of the docker container
 - docker ps - shows running containers
 - docker stop <container ID> - stops running container
 - docker start <container ID> - starts existing container
-- docker push <your docker hub ID>/platformservice - uploads the image
+- docker push konstantinkirchev/platformservice - uploads the image
 
 # Kubernetes commands:
 
